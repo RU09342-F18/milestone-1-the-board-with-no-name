@@ -33,10 +33,10 @@ void initUART(void)
 {
     P3SEL |= BIT3 + BIT4; // sets pin 3.3 and 3.4 for USCI_A0 TXD/RXD
     UCA0CTL1 |= UCSWRST; // resets USCI logic to hold in reset state
-    UCA0CTL1 |= UCSSEL_2;                     // SMCLK
-    UCA0BR0 = 6;                              // 1MHz 9600 (see User's Guide)
-    UCA0BR1 = 0;                              // 1MHz 9600
-    UCA0MCTL = UCBRS_0 + UCBRF_13 + UCOS16;   // Modln UCBRSx=0, UCBRFx=0,
+    UCA0CTL1 |= UCSSEL_1;                     // CLK = ACLK
+    UCA0BR0 = 0x03;                           // 32kHz/9600=3.41 (see User's Guide)
+    UCA0BR1 = 0x00;                           //
+    UCA0MCTL = UCBRS_3 + UCBRF_0;               // Modulation UCBRSx=3, UCBRFx=0
     UCA0CTL1 &= ~(UCSWRST); // starts USCI state machine
     UCA0IE |= UCRXIE; // enables RX interrupt on USCI_A0
 
